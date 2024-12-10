@@ -10,8 +10,8 @@ class CalculatorView extends StatefulWidget {
 class _CalculatorViewState extends State<CalculatorView> {
   final _textController = TextEditingController();
   final _key = GlobalKey<FormState>();
-  int first = 0;
-  int second = 0;
+  double first = 0;
+  double second = 0;
   String operator = "";
 
   List<String> lstSymbols = [
@@ -50,8 +50,8 @@ class _CalculatorViewState extends State<CalculatorView> {
         }
       } else if (symbol == "=") {
         if (operator.isNotEmpty && _textController.text.isNotEmpty) {
-          second = int.tryParse(_textController.text) ?? 0;
-          int result = _calculateResult();
+          second = double.tryParse(_textController.text) ?? 0;
+          double result = _calculateResult();
           _textController.text = result.toString();
           first = result;
           operator = "";
@@ -62,7 +62,7 @@ class _CalculatorViewState extends State<CalculatorView> {
           symbol == "*" ||
           symbol == "/") {
         if (_textController.text.isNotEmpty) {
-          first = int.tryParse(_textController.text) ?? 0;
+          first = double.tryParse(_textController.text) ?? 0;
           operator = symbol;
           _textController.text = "";
         }
@@ -72,7 +72,7 @@ class _CalculatorViewState extends State<CalculatorView> {
     });
   }
 
-  int _calculateResult() {
+  double _calculateResult() {
     switch (operator) {
       case "+":
         return first + second;
@@ -81,7 +81,7 @@ class _CalculatorViewState extends State<CalculatorView> {
       case "*":
         return first * second;
       case "/":
-        return second != 0 ? first ~/ second : 0; // Integer division
+        return second != 0 ? first / second : 0; // Division with check for zero
       default:
         return 0;
     }
